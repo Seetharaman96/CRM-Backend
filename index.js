@@ -20,23 +20,39 @@ app.use(express.json());
 app.get("/", function (request, response) {
   response.send("🙋‍♂️, 🌏 🎊✨🤩");
 });
-
-app.get("/administrator", function (req, res) {
+// -----------------------------------------------------------------------------------
+// Admin
+app.get("/admin", function (req, res) {
   res.send("Hello all welcome to the administrator page");
 });
-
-app.get("/administrator/manager", async function (req, res) {
-  const result = await client.db("CRM").collection("manager").findOne({});
+// ----------------------------------------------------------------------------------
+// Manager
+app.get("/admin/manager", async function (req, res) {
+  const result = await client.db("CRM").collection("manager").find({}).toArray();
   res.send(result);
 });
 
-app.post("/create/manager", async function(req,res){
+app.post("/admin/create/manager", async function(req,res){
     const data = req.body;
     const result = await client.db("CRM").collection("manager").insertOne(data);
     res.send(result);
-})
+});
 
-app.get("/administrator/seniorEmployees", async function (req, res) {
+app.put("/admin/edit/manager/:id", async function(req,res){
+  const { id } = req.params;
+  const data = req.body;
+  const result = await client.db("CRM").collection("manager").updateOne({id: id},{$set: data});
+  res.send(result);
+});
+
+app.delete("/admin/delete/manager/:id", async function(req,res){
+  const { id } = req.params;
+  const result = await client.db("CRM").collection("manager").deleteOne({id: id});
+  res.send(result);
+});
+// ----------------------------------------------------------------------------------
+// Senior Employees
+app.get("/admin/seniorEmp", async function (req, res) {
   const result = await client
     .db("CRM")
     .collection("seniorEmployees")
@@ -45,13 +61,27 @@ app.get("/administrator/seniorEmployees", async function (req, res) {
   res.send(result);
 });
 
-app.post("/create/seniorEmployees", async function(req,res){
+app.post("/admin/create/seniorEmp", async function(req,res){
     const data = req.body;
-    const result = await client.db("CRM").collection("seniorEmployees").insertMany(data);
+    const result = await client.db("CRM").collection("seniorEmployees").insertOne(data);
     res.send(result);
-})
+});
 
-app.get("/administrator/juniorEmployees", async function (req, res) {
+app.put("/admin/edit/seniorEmp/:id", async function (req,res){
+  const{id} = req.params;
+  const data = req.body;
+  const result = await client.db("CRM").collection("seniorEmployees").updateOne({id: id}, {$set: data});
+  res.send(result);
+});
+
+app.delete("/admin/delete/seniorEmp/:id", async function(req,res){
+  const{id} = req.params;
+  const result = await client.db("CRM").collection("seniorEmployees").deleteOne({id: id});
+  res.send(result);
+});
+// -------------------------------------------------------------------------------
+// Junior Employees
+app.get("/admin/juniorEmp", async function (req, res) {
   const result = await client
     .db("CRM")
     .collection("juniorEmployees")
@@ -60,10 +90,23 @@ app.get("/administrator/juniorEmployees", async function (req, res) {
   res.send(result);
 });
 
-app.post("/create/juniorEmployees", async function(req,res){
+app.post("/admin/create/juniorEmp", async function(req,res){
     const data = req.body;
-    const result = await client.db("CRM").collection("juniorEmployees").insertMany(data);
+    const result = await client.db("CRM").collection("juniorEmployees").insertOne(data);
     res.send(result);
-})
+});
+
+app.put("/admin/edit/juniorEmp/:id", async function(req,res){
+  const {id} = req.params;
+  const data = req.body;
+  const result = await client.db("CRM").collection("juniorEmployees").updateOne({id: id}, {$set: data});
+  res.send(result);
+});
+
+app.delete("/admin/delete/juniorEmp/:id", async function(req,res){
+  const {id} = req.params;
+  const result = await client.db("CRM").collection("juniorEmployees").deleteOne({id: id});
+  res.send(result);
+});
 
 app.listen(PORT, () => console.log(`The server started in: ${PORT} ✨✨`));
