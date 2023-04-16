@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb";
 // const express = require("express"); // "type": "commonjs"
 import express from "express"; // "type": "module"
 const app = express();
-import * as dotenv from 'dotenv';
+import * as dotenv from "dotenv";
 dotenv.config();
 
 const PORT = 4000;
@@ -28,26 +28,45 @@ app.get("/admin", function (req, res) {
 // ----------------------------------------------------------------------------------
 // Manager
 app.get("/admin/manager", async function (req, res) {
-  const result = await client.db("CRM").collection("manager").find({}).toArray();
+  const result = await client
+    .db("CRM")
+    .collection("manager")
+    .find({})
+    .toArray();
   res.send(result);
 });
 
-app.post("/admin/create/manager", async function(req,res){
-    const data = req.body;
-    const result = await client.db("CRM").collection("manager").insertOne(data);
-    res.send(result);
+app.get("/admin/manager/:id", async function (req, res) {
+  const { id } = req.params;
+  const result = await client
+    .db("CRM")
+    .collection("manager")
+    .findOne({ id: id });
+  res.send(result);
 });
 
-app.put("/admin/edit/manager/:id", async function(req,res){
+app.post("/admin/create/manager", async function (req, res) {
+  const data = req.body;
+  const result = await client.db("CRM").collection("manager").insertOne(data);
+  res.send(result);
+});
+
+app.put("/admin/edit/manager/:id", async function (req, res) {
   const { id } = req.params;
   const data = req.body;
-  const result = await client.db("CRM").collection("manager").updateOne({id: id},{$set: data});
+  const result = await client
+    .db("CRM")
+    .collection("manager")
+    .updateOne({ id: id }, { $set: data });
   res.send(result);
 });
 
-app.delete("/admin/delete/manager/:id", async function(req,res){
+app.delete("/admin/delete/manager/:id", async function (req, res) {
   const { id } = req.params;
-  const result = await client.db("CRM").collection("manager").deleteOne({id: id});
+  const result = await client
+    .db("CRM")
+    .collection("manager")
+    .deleteOne({ id: id });
   res.send(result);
 });
 // ----------------------------------------------------------------------------------
@@ -61,22 +80,40 @@ app.get("/admin/seniorEmp", async function (req, res) {
   res.send(result);
 });
 
-app.post("/admin/create/seniorEmp", async function(req,res){
-    const data = req.body;
-    const result = await client.db("CRM").collection("seniorEmployees").insertOne(data);
-    res.send(result);
-});
-
-app.put("/admin/edit/seniorEmp/:id", async function (req,res){
-  const{id} = req.params;
-  const data = req.body;
-  const result = await client.db("CRM").collection("seniorEmployees").updateOne({id: id}, {$set: data});
+app.get("/admin/seniorEmp/:id", async function (req, res) {
+  const { id } = req.params;
+  const result = await client
+    .db("CRM")
+    .collection("seniorEmployees")
+    .findOne({ id: id });
   res.send(result);
 });
 
-app.delete("/admin/delete/seniorEmp/:id", async function(req,res){
-  const{id} = req.params;
-  const result = await client.db("CRM").collection("seniorEmployees").deleteOne({id: id});
+app.post("/admin/create/seniorEmp", async function (req, res) {
+  const data = req.body;
+  const result = await client
+    .db("CRM")
+    .collection("seniorEmployees")
+    .insertOne(data);
+  res.send(result);
+});
+
+app.put("/admin/edit/seniorEmp/:id", async function (req, res) {
+  const { id } = req.params;
+  const data = req.body;
+  const result = await client
+    .db("CRM")
+    .collection("seniorEmployees")
+    .updateOne({ id: id }, { $set: data });
+  res.send(result);
+});
+
+app.delete("/admin/delete/seniorEmp/:id", async function (req, res) {
+  const { id } = req.params;
+  const result = await client
+    .db("CRM")
+    .collection("seniorEmployees")
+    .deleteOne({ id: id });
   res.send(result);
 });
 // -------------------------------------------------------------------------------
@@ -90,22 +127,40 @@ app.get("/admin/juniorEmp", async function (req, res) {
   res.send(result);
 });
 
-app.post("/admin/create/juniorEmp", async function(req,res){
-    const data = req.body;
-    const result = await client.db("CRM").collection("juniorEmployees").insertOne(data);
-    res.send(result);
-});
-
-app.put("/admin/edit/juniorEmp/:id", async function(req,res){
-  const {id} = req.params;
-  const data = req.body;
-  const result = await client.db("CRM").collection("juniorEmployees").updateOne({id: id}, {$set: data});
+app.get("/admin/juniorEmp/:id", async function (req, res) {
+  const { id } = req.params;
+  const result = await client
+    .db("CRM")
+    .collection("juniorEmployees")
+    .findOne({ id: id });
   res.send(result);
 });
 
-app.delete("/admin/delete/juniorEmp/:id", async function(req,res){
-  const {id} = req.params;
-  const result = await client.db("CRM").collection("juniorEmployees").deleteOne({id: id});
+app.post("/admin/create/juniorEmp", async function (req, res) {
+  const data = req.body;
+  const result = await client
+    .db("CRM")
+    .collection("juniorEmployees")
+    .insertOne(data);
+  res.send(result);
+});
+
+app.put("/admin/edit/juniorEmp/:id", async function (req, res) {
+  const { id } = req.params;
+  const data = req.body;
+  const result = await client
+    .db("CRM")
+    .collection("juniorEmployees")
+    .updateOne({ id: id }, { $set: data });
+  res.send(result);
+});
+
+app.delete("/admin/delete/juniorEmp/:id", async function (req, res) {
+  const { id } = req.params;
+  const result = await client
+    .db("CRM")
+    .collection("juniorEmployees")
+    .deleteOne({ id: id });
   res.send(result);
 });
 
