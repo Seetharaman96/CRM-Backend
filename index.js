@@ -4,6 +4,7 @@ import express from "express"; // "type": "module"
 const app = express();
 import * as dotenv from "dotenv";
 dotenv.config();
+import cors from 'cors';
 
 const PORT = 4000;
 
@@ -14,6 +15,8 @@ const client = new MongoClient(MONGO_URL); // dial
 // Top level await
 await client.connect(); // call
 console.log("Mongo is connected !!!  ");
+
+app.use(cors());
 
 app.use(express.json());
 
