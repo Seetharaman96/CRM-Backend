@@ -8,8 +8,8 @@ import cors from 'cors';
 
 const PORT = 4000;
 
-// const MONGO_URL = "mongodb://127.0.0.1";
-const MONGO_URL = process.env.MONGO_URL;
+const MONGO_URL = "mongodb://127.0.0.1";
+// const MONGO_URL = process.env.MONGO_URL;
 
 const client = new MongoClient(MONGO_URL); // dial
 // Top level await
@@ -44,7 +44,7 @@ app.get("/admin/manager/:id", async function (req, res) {
   const result = await client
     .db("CRM")
     .collection("manager")
-    .findOne({ id: id });
+    .findOne({ _id: id });
   res.send(result);
 });
 
@@ -60,7 +60,7 @@ app.put("/admin/edit/manager/:id", async function (req, res) {
   const result = await client
     .db("CRM")
     .collection("manager")
-    .updateOne({ id: id }, { $set: data });
+    .updateOne({ _id: id }, { $set: data });
   res.send(result);
 });
 
@@ -69,7 +69,7 @@ app.delete("/admin/delete/manager/:id", async function (req, res) {
   const result = await client
     .db("CRM")
     .collection("manager")
-    .deleteOne({ id: id });
+    .deleteOne({ _id: id });
   res.send(result);
 });
 // ----------------------------------------------------------------------------------
@@ -88,7 +88,7 @@ app.get("/admin/seniorEmp/:id", async function (req, res) {
   const result = await client
     .db("CRM")
     .collection("seniorEmployees")
-    .findOne({ id: id });
+    .findOne({ _id: id });
   res.send(result);
 });
 
@@ -107,7 +107,7 @@ app.put("/admin/edit/seniorEmp/:id", async function (req, res) {
   const result = await client
     .db("CRM")
     .collection("seniorEmployees")
-    .updateOne({ id: id }, { $set: data });
+    .updateOne({ _id: id }, { $set: data });
   res.send(result);
 });
 
@@ -116,7 +116,7 @@ app.delete("/admin/delete/seniorEmp/:id", async function (req, res) {
   const result = await client
     .db("CRM")
     .collection("seniorEmployees")
-    .deleteOne({ id: id });
+    .deleteOne({ _id: id });
   res.send(result);
 });
 // -------------------------------------------------------------------------------
@@ -135,7 +135,7 @@ app.get("/admin/juniorEmp/:id", async function (req, res) {
   const result = await client
     .db("CRM")
     .collection("juniorEmployees")
-    .findOne({ id: id });
+    .findOne({ _id: id });
   res.send(result);
 });
 
@@ -154,7 +154,7 @@ app.put("/admin/edit/juniorEmp/:id", async function (req, res) {
   const result = await client
     .db("CRM")
     .collection("juniorEmployees")
-    .updateOne({ id: id }, { $set: data });
+    .updateOne({ _id: id }, { $set: data });
   res.send(result);
 });
 
@@ -163,7 +163,7 @@ app.delete("/admin/delete/juniorEmp/:id", async function (req, res) {
   const result = await client
     .db("CRM")
     .collection("juniorEmployees")
-    .deleteOne({ id: id });
+    .deleteOne({ _id: id });
   res.send(result);
 });
 
