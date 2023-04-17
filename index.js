@@ -8,8 +8,8 @@ import cors from 'cors';
 
 const PORT = 4000;
 
-const MONGO_URL = "mongodb://127.0.0.1";
-// const MONGO_URL = process.env.MONGO_URL;
+// const MONGO_URL = "mongodb://127.0.0.1";
+const MONGO_URL = process.env.MONGO_URL;
 
 const client = new MongoClient(MONGO_URL); // dial
 // Top level await
