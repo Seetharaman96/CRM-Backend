@@ -6,6 +6,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
 import adminRouter from "./router/admin.router.js";
+import usersRouter from "./router/users.router.js";
 
 const PORT = 4000;
 
@@ -23,18 +24,11 @@ app.use(express.json());
 
 app.use("/admin", adminRouter)
 
+app.use("/users", usersRouter)
+
 app.get("/", function (request, response) {
   response.send("🙋‍♂️, 🌏 🎊✨🤩");
 });
 // -----------------------------------------------------------------------------------
 
-
 app.listen(PORT, () => console.log(`The server started in: ${PORT} ✨✨`));
-// const generateHashedPassword = async(password) => {
-//   const noOfRounds = 10;
-//   const salt = await bcrypt.genSalt(noOfRounds);
-//   const hashedPassword = await bcrypt.hash(password,salt);
-//   console.log(salt);
-//   console.log(hashedPassword);
-// }
-// generateHashedPassword("Password123");
