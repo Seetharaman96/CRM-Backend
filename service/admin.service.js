@@ -81,3 +81,14 @@ export async function getManagerId(id) {
 export async function getManager() {
   return await client.db("CRM").collection("manager").find({}).toArray();
 }
+// --------------------------------------------------------------------------
+export async function signUp(data) {
+  return await client.db("CRM").collection("admin").insertOne(data);
+}
+
+export async function getUserByName(userName) {
+  return await client
+    .db("CRM")
+    .collection("admin")
+    .findOne({ userName: userName });
+}
