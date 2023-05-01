@@ -33,33 +33,33 @@ router.get("/manager", auth, async function (req, res) {
   res.send(result);
 });
 
-router.get("/manager/:id", auth, async function (req, res) {
+router.get("/manager/:id", async function (req, res) {
   const { id } = req.params;
   const result = await getManagerId(id);
   res.send(result);
 });
 
-router.post("/create/manager", auth, async function (req, res) {
+router.post("/create/manager", async function (req, res) {
   const data = req.body;
   const result = await createManager(data);
   res.send(result);
 });
 
-router.put("/edit/manager/:id", auth, async function (req, res) {
+router.put("/edit/manager/:id", async function (req, res) {
   const { id } = req.params;
   const data = req.body;
   const result = await editManagerById(id, data);
   res.send(result);
 });
 
-router.delete("/delete/manager/:id", auth, async function (req, res) {
+router.delete("/delete/manager/:id", async function (req, res) {
   const { id } = req.params;
   const result = await deleteManagerById(id);
   res.send(result);
 });
 // ----------------------------------------------------------------------------------
 // Senior Employees
-router.get("/seniorEmp", async function (req, res) {
+router.get("/seniorEmp", auth, async function (req, res) {
   const result = await getSeniorEmp();
   res.send(result);
 });
@@ -90,7 +90,7 @@ router.delete("/delete/seniorEmp/:id", async function (req, res) {
 });
 // -------------------------------------------------------------------------------
 // Junior Employees
-router.get("/juniorEmp", async function (req, res) {
+router.get("/juniorEmp", auth, async function (req, res) {
   const result = await getJuniorEmp();
   res.send(result);
 });
