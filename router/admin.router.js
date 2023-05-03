@@ -163,5 +163,27 @@ router.post("/login", async function (req, res) {
     }
   }
 });
-
+// ------------------------------------------------------------------------
+// Forget Password
+router.post("/forgetPassword", async function (req, res) {
+  const userName = req.body;
+  const userFromDb = await getUserByName(userName);
+  if (!userFromDb) {
+    res.status(400).send({ message: "Invalid Credentials" });
+  } else {
+    const secret = process.env.SECRET_KEY + userFromDb.password;
+    const newToken = jwt.sign(
+      { userName: userFromDb.userName, id: userFromDb._id },
+      secret,
+      { expiresIn: "5m" }
+    );
+    const link = `https://crm-backend-nbit.onrender.com/resetPassword/${userFromDb._id}/${newToken}`;
+    console.log(link)
+  }
+});
+// ------------------------------------------------------------------------------
+router.get("/resetPassword", async function(req,res){
+  const {id, token} = req.params;
+  console.log(req.params);
+})
 export default router;
